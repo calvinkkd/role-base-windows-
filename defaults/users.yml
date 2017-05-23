@@ -1,0 +1,7 @@
+---
+#filename: roles/role-basewin/defaults/users.yml
+#default users accounts for Windows Servers
+users: 
+   dns_account_user:
+       user: Admin
+       password: Iecisa01

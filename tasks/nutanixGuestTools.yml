@@ -1,0 +1,27 @@
+---
+#filename: roles/base/tasks/nutanixGuestTools.yml
+# Installs the Nutanix Guest Tools in Windows Servers 
+
+- name: Creating temporal ps1 execution folder
+  win_file:
+    path: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}"
+    state: directory
+
+- name: Copy download ps1 to host machine
+  template: src="DownloadFromRepository.ps1.j2" dest="{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}{{ config['install']['ps1DownloadNGTName'] }}"
+
+- name: Download Nutanix Guest Tools from repo
+  win_shell: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}{{ config['install']['ps1DownloadNGTName'] }}"    
+
+- name: Copy NGT Installer ps1 to host machine
+  template: src="InstallNutanixGuestTools.ps1.j2" dest="{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}{{ config['install']['ps1InstallNutanixName'] }}"
+
+- name: Install Nutanix Guest Tools 
+  win_shell: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}{{ config['install']['ps1InstallNutanixName'] }}"    
+
+- name: Deleting temporal ps1 execution folder
+  win_file:
+    path: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}"
+    state: absent
+  when: true != {{ config['debug'] }}
+    

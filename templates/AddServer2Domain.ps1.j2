@@ -1,0 +1,20 @@
+# Notice:This file is being managed by Ansible
+# Any manual updates will be overwritten
+#filename: roles/base/templates/AddServer2Domain.ps1.j2
+
+$exitValue = 0
+Try
+{
+    $domain = "{{ dns['dns_name'] }}"
+    $password = "{{ users['dns_account_user']['password'] }}" | ConvertTo-SecureString -asPlainText -Force
+    $username = $domain + "\" + "{{ users['dns_account_user']['user'] }}" 
+    $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+    Add-Computer -DomainName $domain -Credential $credential
+}
+Catch
+{
+    $exitValue = 1000
+}
+
+return $exitValue
+

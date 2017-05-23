@@ -1,0 +1,14 @@
+---
+#filename: roles/base/tasks/main.yml
+#main process
+- include_vars: defaults/users.yml
+
+- include: nutanixGuestTools.yml
+
+- include: reboot.yml
+  when: ansible_windows_domain != "{{ dns['dns_name'] }}"
+ 
+- include: addServer2Domain.yml
+  when: ansible_windows_domain != "{{ dns['dns_name'] }}"
+ 
+

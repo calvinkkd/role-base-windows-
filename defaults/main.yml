@@ -1,0 +1,25 @@
+---
+#filename: roles/role-basewin/defaults/main.yml
+#default vars for dns settings in Windows Servers.
+dns: 
+   dns_name: sectoriales.local  
+
+config: 
+   install:
+     configPath: '{{ ansible_env.TMP }}'
+     configTempFolder: '\\Ansible-tmp-PSExecution\\'
+     ps1Join2ADName: 'AddServer2Domain.ps1'
+     ps1DownloadNGTName: 'DownloadFromRepository.ps1'
+     ps1InstallNutanixName: 'InstallNutanixGuestTools.ps1'
+
+   
+   repo:
+     basePath: '\\10.46.72.11\windows\'
+     NutanixGT: 'utils\Nutanix_Guest_Tools\'
+   
+   debug: false
+
+
+
+
+

@@ -1,0 +1,20 @@
+# Notice:This file is being managed by Ansible
+# Any manual updates will be overwritten
+#filename: roles/base/templates/InstallNutanixGuestTools.ps1.j2
+
+$exitValue = 0
+#Try
+#{
+    $username = whoami
+    $password = "Temporal123."
+    $pass = ConvertTo-SecureString $password -AsPlainText -Force
+    $cred = new-object system.management.automation.PSCredential $username,$pass
+    Start-Process Powershell -ArgumentList "& {{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}\Nutanix_Guest_Tools\installer\windows\Nutanix-NGT-20161205.exe /quiet /l {{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}\logNutanixGuestTools.txt ACCEPTEULA=yes" -Credential $cred
+#}
+#Catch
+#{
+#    $exitValue = 1000
+#}
+
+return $exitValue
+

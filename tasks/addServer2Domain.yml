@@ -1,0 +1,24 @@
+---
+#filename: roles/base/tasks/addServer2Domain.yml
+# Joins a Windows server to a AD Domain 
+
+- name: Creating temporal ps1 execution folder
+  win_file:
+    path: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}"
+    state: directory
+
+- name: Creating ps1 from Jinja2 template
+  template: src="AddServer2Domain.ps1.j2" dest="{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}{{ config['install']['ps1Join2ADName'] }}"
+
+- name: Starting ps1 execution
+  win_shell: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}{{ config['install']['ps1Join2ADName'] }}"    
+
+- name: Deleting temporal ps1 execution folder
+  win_file:
+    path: "{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}"
+    state: absent
+  when: true != {{ config['debug'] }}
+
+- name: Reboot machine
+  win_reboot:
+    

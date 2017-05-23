@@ -1,0 +1,18 @@
+# Notice:This file is being managed by Ansible
+# Any manual updates will be overwritten
+#filename: roles/base/templates/DownloadFromRepository.ps1.j2
+
+$exitValue = 0
+Try
+{
+    $source="{{ config['repo']['basePath'] }}{{ config['repo']['NutanixGT'] }}"
+    $destination="{{ config['install']['configPath'] }}{{ config['install']['configTempFolder'] }}"
+    Copy-Item -Recurse -Filter *.* -path $source -destination $destination -Force
+}
+Catch
+{
+    $exitValue = 1000
+}
+
+return $exitValue
+

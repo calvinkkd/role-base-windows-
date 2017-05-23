@@ -1,0 +1,7 @@
+---
+#filename: roles/base/tasks/reboot.yml
+#Reboots a machine
+
+- name: Reboot machine
+  win_reboot:
+    
