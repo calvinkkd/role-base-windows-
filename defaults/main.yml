@@ -2,7 +2,7 @@
 #filename: roles/role-basewin/defaults/main.yml
 #default vars for dns settings in Windows Servers.
 dns: 
-   dns_name: sectoriales.local  
+   dns_name: 
 
 config: 
    install:
@@ -14,8 +14,8 @@ config:
 
    
    repo:
-     basePath: '\\10.46.72.11\windows\'
-     NutanixGT: 'utils\Nutanix_Guest_Tools\'
+     basePath: 
+     NutanixGT: 
    
    debug: false
 
